@@ -3,7 +3,7 @@ package com.trmartin.androidcalculator.model
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 
-class InvalidInputTest {
+class InvalidInputExceptionTest {
     @Test
     fun `Regex for InvalidInput correctly identifies invalid user input`() {
         val validInput1 = "2 * 4 - 7.3 + .3 - 3."

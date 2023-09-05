@@ -1,18 +1,376 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/buttonMultiply"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:background="@color/non_error_color"
+            android:text="Calculate:"
+            android:textColor="@color/white"
+            android:textSize="50sp">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/tvResult"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_gravity="end"
+            android:text=""
+            android:textAlignment="textEnd"
+            android:textColor="@color/white"
+            android:textSize="50sp">
+
+        </TextView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/buttonClear"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/clear_btn"
+                android:text="@string/clear"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/button_text_size"
+                app:shapeAppearance="@style/Widget.AppCompat.Button.Borderless">
+
+
+            </Button>
+
+            <Button
+                android:id="@+id/buttonNegate"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/operator_btn"
+                android:text="@string/negate"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="40sp">
+
+            </Button>
+
+            <Button
+                android:id="@+id/buttonBackspace"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/operator_btn"
+                android:text="@string/backspace"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/button_text_size">
+
+            </Button>
+
+            <Button
+                android:id="@+id/buttonDivide"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/operator_btn"
+                android:text="@string/divide"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/button_text_size">
+
+            </Button>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/button7"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@null"
+                android:text="@string/_7"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/button_text_size"
+                app:shapeAppearance="@style/Widget.AppCompat.Button.Borderless">
+
+            </Button>
+
+            <Button
+                android:id="@+id/button8"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@null"
+                android:text="@string/_8"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textColorHint="@null"
+                android:textSize="@dimen/button_text_size">
+
+            </Button>
+
+            <Button
+                android:id="@+id/button9"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@null"
+                android:text="@string/_9"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/button_text_size">
+
+            </Button>
+
+            <Button
+                android:id="@+id/buttonProduct"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/operator_btn"
+                android:text="@string/multiply"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/button_text_size">
+
+
+            </Button>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/button4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@null"
+                android:text="@string/_4"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/button_text_size">
+
+            </Button>
+
+            <Button
+                android:id="@+id/button5"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@null"
+                android:text="@string/_5"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/button_text_size">
+
+            </Button>
+
+            <Button
+                android:id="@+id/button6"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@null"
+                android:text="@string/_6"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/button_text_size">
+
+            </Button>
+
+            <Button
+                android:id="@+id/buttonMinus"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/operator_btn"
+                android:text="@string/subtract"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/equals_text_size">
+
+            </Button>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/button1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@null"
+                android:text="@string/_1"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/button_text_size">
+
+            </Button>
+
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@null"
+                android:text="@string/_2"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/button_text_size">
+
+            </Button>
+
+            <Button
+                android:id="@+id/button3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@null"
+                android:text="@string/_3"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/button_text_size">
+
+            </Button>
+
+            <Button
+                android:id="@+id/buttonAdd"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/operator_btn"
+                android:shadowRadius="0"
+                android:text="@string/addition"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/button_text_size">
+
+            </Button>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/button0"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@null"
+                android:text="@string/_0"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/button_text_size">
+
+            </Button>
+
+            <Button
+                android:id="@+id/buttonDecimal"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@null"
+                android:text="@string/decimal"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/button_text_size">
+
+            </Button>
+
+            <Button
+                android:id="@+id/buttonEquals"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/equals_btn"
+                android:text="@string/equals"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/equals_text_size">
+
+            </Button>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+</LinearLayout>

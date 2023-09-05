@@ -2,4 +2,9 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="operator_btn">#39512DA8</color>
+    <color name="equals_btn">#3C689F38</color>
+    <color name="clear_btn">#41FB7272</color>
+    <color name="non_error_color">#3C689F38</color>
+    <color name="error_color">#41FB7272</color>
 </resources>

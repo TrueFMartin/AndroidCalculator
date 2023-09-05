@@ -31,6 +31,8 @@ object Parsers {
         // Remove instances of negative numbers, '-3', they throw off Char.isOperand()
         val strWithoutNegatives = s.replace(negativeRegex, "")
         val operatorString = strWithoutNegatives.filter {it.isOperand()}.toCharArray()
+        if (operatorString.isEmpty())
+            return arrayListOf()
         if (operatorString.size == 1){
             // Can not cast a string of size 1 to an ArrayList like normal operation below
             // E.g. '3 + 3' will try and cast '+' .toList() as ArrayList<Char> and fail
