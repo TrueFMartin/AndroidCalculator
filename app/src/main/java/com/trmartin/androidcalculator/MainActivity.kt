@@ -94,12 +94,8 @@ class MainActivity : AppCompatActivity(), Contract.View, View.OnClickListener {
     }
 
     private fun addResults(addition: String) {
-        if (!isACalculation) { //Do not overwrite current 'tvResult', just append the addition
-            val newResult = tvResult.text as String + addition
-            tvResult.text = newResult
-        } else { //Overwrite the previous final 'result'
-            tvResult.text = addition
-        }
+        val newResult = tvResult.text as String + addition
+        tvResult.text = newResult
         isACalculation = false
         clearError()
     }
