@@ -20,7 +20,7 @@ object Parsers {
     }
 
 
-    private val negativeRegex = Regex("-\\d+")
+    private val negativeRegex = Regex("(-\\d+)|(-\\.+)")
 
     /**
      * Parse input.
