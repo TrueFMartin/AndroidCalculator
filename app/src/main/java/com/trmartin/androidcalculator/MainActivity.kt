@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.text.isDigitsOnly
 import kotlin.properties.Delegates
 
 class MainActivity : AppCompatActivity(), Contract.View, View.OnClickListener {
@@ -84,8 +85,14 @@ class MainActivity : AppCompatActivity(), Contract.View, View.OnClickListener {
                 Contract.CONTROLS.NEGATE, tvResult.text as String)
 
 
-            R.id.buttonBackspace -> presenter.updateFromView(
-                Contract.CONTROLS.BACKSPACE, tvResult.text as String)
+            R.id.buttonBackspace -> {
+                if (isACalculation) {
+                    tvResult.text = ""
+                }
+                presenter.updateFromView(
+                    Contract.CONTROLS.BACKSPACE, tvResult.text as String
+                )
+            }
 
             R.id.buttonEquals -> presenter.updateFromView(
                 Contract.CONTROLS.EQUALS, tvResult.text as String)
@@ -97,8 +104,14 @@ class MainActivity : AppCompatActivity(), Contract.View, View.OnClickListener {
         if (!isACalculation) { //Do not overwrite current 'tvResult', just append the addition
             val newResult = tvResult.text as String + addition
             tvResult.text = newResult
-        } else { //Overwrite the previous final 'result'
+        // If a calculation was just performed, and user entered a number, overwrite it
+        } else if (addition.isDigitsOnly() || addition == "." || tvResult.text == "Undefined"){
             tvResult.text = addition
+        // If calculation was performed, and we don't want to overwrite the results,
+        // we instead add on top of them
+        } else { //Overwrite the previous final 'result'
+            val newResult = tvResult.text as String + addition
+            tvResult.text = newResult
         }
         isACalculation = false
         clearError()
