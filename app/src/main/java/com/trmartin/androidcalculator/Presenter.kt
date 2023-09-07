@@ -21,7 +21,7 @@ class Presenter(val view: Contract.View): Contract.Presenter {
 
     private fun calc(input: String) {
         try {
-            view.setResult(formatDisplay(mModel.calc(input)), true)
+            view.setResult(formatPrintout(mModel.calc(input)), true)
         } catch (_: Exceptions.EmptyInput){
             view.setError("EMPTY")
         } catch (_: Exceptions.MultipleDecimalException){
@@ -39,7 +39,9 @@ class Presenter(val view: Contract.View): Contract.Presenter {
         }
     }
 
-    private fun formatDisplay(result: Double): String {
+    private fun formatPrintout(result: Double): String {
+        if (result.isInfinite())
+            return "Undefined"
         // If a whole number
         if (result.toInt().toDouble() == result)
             return result.toInt().toString()
