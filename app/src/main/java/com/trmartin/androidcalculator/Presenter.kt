@@ -3,25 +3,49 @@ package com.trmartin.androidcalculator
 import com.trmartin.androidcalculator.model.Delegator
 import com.trmartin.androidcalculator.model.Exceptions
 
-class Presenter(val view: Contract.View): Contract.Presenter {
-    private val mModel: Contract.Model
+/**
+ * Presenter
+ *
+ * @property view
+ * @constructor Create empty Presenter
+ */
+class Presenter(private val view: Contract.View): Contract.Presenter {
+    private val model: Contract.Model
+    private val numberRegex = Regex("[0-9]")
     init {
-        mModel = Delegator
+        model = Delegator
     }
-    // FIXME is it better to have two methods named by the interface
+
     override fun updateFromView(op: Contract.CONTROLS, input: String) {
-        when(op){
+        when(op) {
             Contract.CONTROLS.EQUALS -> calc(input)
             Contract.CONTROLS.BACKSPACE -> backspace(input)
             Contract.CONTROLS.NEGATE -> negate(input)
-            // ... IF it was a more robust APP this method wouldn't be so useless
-
         }
     }
 
+    /**
+     * Call model's 'calc' method. Respond from errors thrown by model
+     * and set the result of the view's 'text view result'.
+     *
+     * @param input to pass to calc
+     */
     private fun calc(input: String) {
         try {
-            view.setResult(formatPrintout(mModel.calc(input)), true)
+            var modifiedInput = input
+            if (input.contains('e')) {
+                val splitInput = input.split(" ") as MutableList
+                splitInput[0] = splitInput[0].toDouble().toString()
+                val builder = StringBuilder()
+                for ((index, s) in splitInput.withIndex()) {
+                    builder.append(s)
+                    if (index != splitInput.lastIndex || !s.contains(numberRegex)) {
+                        builder.append(' ')
+                    }
+                }
+                modifiedInput = builder.toString()
+            }
+            view.setResult(formatPrintout(model.calc(modifiedInput)), true)
         } catch (_: Exceptions.EmptyInput){
             view.setError("EMPTY")
         } catch (_: Exceptions.MultipleDecimalException){
@@ -39,13 +63,56 @@ class Presenter(val view: Contract.View): Contract.Presenter {
         }
     }
 
+    /**
+     * Format printout for Main Activity's 'text view result',
+     * replacing 'Infinite' with 'Undefined' and converting whole
+     * numbers into integer displays.
+     *
+     * @param result to be formatted
+     * @return the formatted result
+     */
     private fun formatPrintout(result: Double): String {
         if (result.isInfinite())
             return "Undefined"
         // If a whole number
         if (result.toInt().toDouble() == result)
             return result.toInt().toString()
-        return result.toString()
+        val strResult = result.toString()
+        if (strResult.contains("e", true)) {
+           return removeZeros(String.format("%.6e", result))
+        } else {
+            return removeZeros(String.format("%f", result))
+        }
+    }
+
+    private fun removeZeros(input: String): String{
+        if (input.contains('e')) {
+            val decimalIndex = input.indexOf('.')
+            val eIndex = input.indexOf('e')
+            val stringBuilder = StringBuilder()
+            var firstExtraZero = eIndex
+            stringBuilder.append(input.substringBefore('.'))
+            for (i in eIndex - 1 downTo decimalIndex) {
+                if (input[i] == '0') firstExtraZero = i else break
+            }
+            if (firstExtraZero == decimalIndex + 1) {
+                stringBuilder.append(input.substring(eIndex..input.lastIndex))
+            } else {
+                stringBuilder.append(input.substring(decimalIndex..<firstExtraZero))
+                stringBuilder.append(input.substring(eIndex..input.lastIndex))
+            }
+            return stringBuilder.toString()
+        } else {
+            var firstExtraZero = input.lastIndex
+            for ( i in input.lastIndex downTo input.indexOf('.') + 1) {
+                if (input[i] == '0') firstExtraZero = i else break
+            }
+            if (firstExtraZero == input.lastIndex) {
+                return input
+            } else {
+                return input.substring(0..<firstExtraZero)
+            }
+        }
     }
 
     private fun backspace(input: String){
