@@ -85,6 +85,12 @@ class Presenter(private val view: Contract.View): Contract.Presenter {
         }
     }
 
+    /**
+     * Remove trailing zeros from decimals. Works on 7.3000e9
+     *
+     * @param input to remove 0's from
+     * @return the same input with the removed trailing zeros
+     */
     private fun removeZeros(input: String): String{
         if (input.contains('e')) {
             val decimalIndex = input.indexOf('.')
@@ -116,16 +122,27 @@ class Presenter(private val view: Contract.View): Contract.Presenter {
     }
 
     private fun backspace(input: String){
+        // If last entry (far right) is an operator
         if (input.endsWith(" ")) {
             view.setResult(input.dropLast(3), false)
+        // Else it's not an operator, just remove last char
         } else {
             view.setResult(input.dropLast(1), false)
         }
     }
 
+
+    /**
+     * Perform logic to decdie where the '-' (negative) should be placed,
+     * or if the current string should be made positive (fun getLastArgumentNegated)
+     *
+     * @param input to negate
+     */
     private fun negate(input: String) {
+        // Add '-' at front
         if (input.isEmpty()) {
             view.setResult("-", false)
+        // Add to far right, after an operator
         } else if(input.endsWith(" ")) {
             view.setResult(input.plus("-"), false)
         } else {
@@ -134,7 +151,16 @@ class Presenter(private val view: Contract.View): Contract.Presenter {
         }
     }
 
-    private fun getLastArgumentNegated(input: String): Pair<Int, String>{
+    /**
+     * Removes the last argument (far right) from the string,
+     * negates its current value (-1 -> 1, 4 -> -4), and returns
+     * a pair of the index to place the last argument, and the
+     * negated argument.
+     *
+     * @param input to negate
+     * @return pair of <index where string should be place, modified string>
+     */
+    private fun getLastArgumentNegated(input: String): Pair<Int, String> {
         val split = input.split(" ")
         val lastArg = split[split.lastIndex]
         val indexOfLast = input.lastIndexOf(lastArg)

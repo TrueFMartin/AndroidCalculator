@@ -25,7 +25,6 @@ class InvalidInput private constructor() {
      * @throws Exceptions from 'Exceptions' class
      */
     @Throws(Exception::class)
-
     fun isInvalid(input: String): Boolean {
         when(true) {
             (input.startsWith(" ")) ->
